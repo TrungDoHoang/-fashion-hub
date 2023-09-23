@@ -1,0 +1,42 @@
+1. Router 
+    
+    - Muốn tạo 1 custom router -> \Providers\RouteServiceProvider.php
+    - Middlware -> Định nghĩa trong \Kernel.php
+    - throttle: Số request được gửi đi trong 60s.
+    Route::group(['middleware' => 'throttle:100,1'], function () {});
+    - 5 phương thức RESTFul API: 
+        + GET (select)
+        + POST (create)
+        + PUT (update)
+        + DELETE(delete)
+    - Blade template: 
+        + GET
+        + POST
+        + MATCH = GET + POST
+
+2. Kiến trúc
+
+Controller -> Business logic -> Nhận data từ request sau khi đã validated
+
+    Services -> XỬ lý logic -> Nhận data thô từ controller
+
+    Repositories -> Tương tác với Model (Database) -> Eloquent + Query Builder
+
+Model -> data access -> Ánh xạ từ bảng database + chuẩn hóa dữ liệu cho các trường của database + Ràng buộc
+    
+    + ->uses->address()
+
+    product->user->address -->
+
+    + function address() {
+        return city . provinces . wards;
+    }
+
+Thuật ngữ
+    Service container ~ IoC -> binding và singleton
+    Service Provider
+    Dependency injection
+    Queue -> cron, batch -> first in first out -> n mail chia ra để gửi trong 1 Queue -> chunk -> kafka
+    Facade
+    Relationship
+    Eloquent, Query Builder

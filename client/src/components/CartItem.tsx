@@ -1,6 +1,11 @@
 import { IoMdAdd, IoMdClose, IoMdRemove } from 'react-icons/io';
 import { Link } from 'react-router-dom';
-import { addToCart, removeFromCart, useAppDispatch } from '../app/store';
+import {
+  addToCart,
+  decreaseItemCart,
+  removeFromCart,
+  useAppDispatch,
+} from '../app/store';
 import { TCartItemProps } from '../types/components';
 
 const CartItem = (props: TCartItemProps) => {
@@ -10,6 +15,10 @@ const CartItem = (props: TCartItemProps) => {
 
   const addHandler = () => {
     dispatch(addToCart(product));
+  };
+
+  const decreaseHandler = (item: number) => {
+    dispatch(decreaseItemCart(item));
   };
 
   const removeHandler = () => {
@@ -39,12 +48,17 @@ const CartItem = (props: TCartItemProps) => {
               className="flex flex-1 mw-[100px] items-center h-full border 
             text-primary font-medium"
             >
-              <IoMdRemove className="flex-1 flex justify-center items-center cursor-pointer select-none" />
+              <IoMdRemove
+                className="flex-1 flex justify-center items-center cursor-pointer select-none
+                h-full"
+                onClick={() => decreaseHandler(product.id)}
+              />
               <p className="h-full flex justify-center items-center px-2">
                 {amount}
               </p>
               <IoMdAdd
-                className="flex-1 flex justify-center items-center cursor-pointer select-none"
+                className="flex-1 flex justify-center items-center cursor-pointer select-none
+                h-full"
                 onClick={addHandler}
               />
             </div>
